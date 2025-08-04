@@ -718,8 +718,11 @@
             
         </div>
         <div class="hero-content">
-            <h1>Hey, I'm Anisha 👋</h1>
-            <p class="subtitle">Engineering dreams. Debugging reality. </p>
+            <div class="container">
+    <h1 class="scramble" id="scramble-text">Hey, I'm Anisha 👋<br>Driven by Curiosity, Powered by AI</h1>
+            
+  </div>
+            
 
         </div>
     </section>
@@ -786,7 +789,7 @@ Let’s talk AI, stocks, side hustles, or even how to make Earth greener (with f
             </div>
             
             <div class="experience-item">
-                <div class="experience-title">Programmer Analyst</div>
+                <div class="experience-title">Proggrammar Analyst</div>
                 <div class="experience-company">Clario (via Cognizant)</div>
                 <div class="experience-duration">Jan 2024 – Present</div>
                 <div class="experience-description">
@@ -958,6 +961,56 @@ Let’s talk AI, stocks, side hustles, or even how to make Earth greener (with f
     </footer>
 
     <script>
+        const el = document.getElementById("scramble-text");
+    const text = "Hey, I'm Anisha......👋 Driven by Curiosity, Powered by AI";
+    const chars = "!<>-_\\/[]{}—=+*^?#________";
+    let frame = 0;
+    let queue = [];
+
+    for (let i = 0; i < text.length; i++) {
+      queue.push({
+        from: text[i],
+        to: text[i],
+        start: Math.floor(Math.random() * 40),
+        end: Math.floor(Math.random() * 40) + 40
+      });
+    }
+
+    function randomChar() {
+      return chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    function update() {
+      let output = "";
+      let complete = 0;
+      for (let i = 0; i < queue.length; i++) {
+        let { from, to, start, end, char } = queue[i];
+
+        if (frame >= end) {
+          complete++;
+          output += to;
+        } else if (frame >= start) {
+          if (!char || Math.random() < 0.28) {
+            char = randomChar();
+            queue[i].char = char;
+          }
+          output += `<span style="opacity:0.5">${char}</span>`;
+        } else {
+          output += from;
+        }
+      }
+
+      el.innerHTML = output;
+
+      if (complete === queue.length) {
+        return;
+      }
+
+      frame++;
+      requestAnimationFrame(update);
+    }
+
+    update();
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1176,6 +1229,16 @@ Let’s talk AI, stocks, side hustles, or even how to make Earth greener (with f
             font-size: 0.9rem;
         }
 
+        h1.scramble {
+      font-size: 4rem;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .container {
+      text-align: center;
+    }
+
         /* Additional mobile responsive fixes */
         @media (max-width: 480px) {
             .hero h1 {
@@ -1204,10 +1267,4 @@ Let’s talk AI, stocks, side hustles, or even how to make Earth greener (with f
         }
     </style>
 </body>
-
 </html>
-
-
-
-
-
